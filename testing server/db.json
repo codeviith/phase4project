@@ -1,0 +1,66 @@
+{
+    "users": [
+      {
+        "id": 1,
+        "email": "email1@gmail.com",
+        "password": "123",
+        "orders" : []
+      },
+      {
+        "id": 2,
+        "email": "email2@gmail.com",
+        "password": "asd",
+        "orders" : []
+      }
+    ],
+    "orders": [
+        {
+          "id": 1,
+          "creation_date": "11/7/2023, 2:14:29 PM",
+          "user_id": 1, 
+          "items": [],
+          "price" : 0
+        },
+        {
+            "id": 2,
+            "creation_date": "11/7/2023, 3:12:59 PM",
+            "user_id": 2,
+            "0_items": [],
+            "0_price" : 0
+          }
+      ],  
+    "items": [
+        {
+          "id": 1,
+          "i_name": "item 1",
+          "i_img": "link here",
+          "i_price" : 10,
+          "stock": 15,
+          "category" : "House stuff"
+        },
+        {
+            "id": 2,
+            "i_name": "item 2",
+            "i_img": "link here",
+            "i_price" : 20,
+            "stock": 25,
+            "category" : "House stuff"
+          },
+          {
+            "id": 3,
+            "i_name": "item 3",
+            "i_img": "link here",
+            "i_price" : 30,
+            "stock": 35,
+            "category" : "House stuff"
+          },
+          {
+            "id": 4,
+            "i_name": "item 3",
+            "i_img": "link here",
+            "i_price" : 40,
+            "stock": 45,
+            "category" : "House stuff"
+          }
+      ]
+  }
