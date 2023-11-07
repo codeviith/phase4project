@@ -12,6 +12,10 @@ const Header = ({ isDarkMode, onToggleDarkMode }) => {
         <div className="navigation">
 
         <NavLink className="button" exact to="/">
+            Login
+        </NavLink>
+
+        <NavLink className="button" exact to="/home">
             Home
         </NavLink>
 

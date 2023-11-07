@@ -46,11 +46,11 @@ function App() {
 
         <Switch>
 
-        <Route exact path="/login">
+        <Route exact path="/">
             <Login />
           </Route>
 
-          <Route exact path="/">
+          <Route exact path="/home">
             <Home 
             items={items}
             setItems={setItems}

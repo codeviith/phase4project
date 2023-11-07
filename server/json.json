@@ -4,7 +4,8 @@
         "id": 1,
         "email": "email1@gmail.com",
         "password": "123",
-        "orders" : []
+        "orders" : [],
+        
       },
       {
         "id": 2,
