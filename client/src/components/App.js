@@ -12,11 +12,24 @@ import Orders from "./Orders.js";
 function App() {
 
 
+
+
   const [user, setUser] = useState  ({});
   const [orders, setOrders] = useState([]);
   const [items, setItems] = useState([]);
+  const [itemStock, setItemStock] = useState({});
+  const [currentUser, setCurrentUser] = useState({})
   
+//   useEffect(() => {
+//     fetch("/check_session").then((res) => {
+//         if (res.ok) {
+//             res.json().then((user) => setCurrentUser(user));
+//         }
+//     });
+// }, []);
 
+
+/*
 
   useEffect(() => {
     fetch("http://localhost:3000/users/1")
@@ -35,10 +48,11 @@ function App() {
 
   useEffect(() => {
     fetch("http://localhost:3000/items")
-      .then((r) => r.json())
-      .then(setItems);
-  }, []);
-  
+    .then((r) => r.json())
+    .then((data) => setItems(data));
+    }, [user, user.u_cart]);
+
+  */
   return (
     <div>
       <Header />
@@ -56,6 +70,9 @@ function App() {
               setUser ={setUser}
               items={items}
               setItems={setItems}
+              itemStock = {itemStock}
+              setItemStock= {setItemStock}
+              
             />
           </Route>
 
@@ -63,6 +80,8 @@ function App() {
             <Cart
               user ={user}
               setUser ={setUser}
+              setItemStock ={setItemStock}
+              setItems = {setItems}
              />
           </Route>
 

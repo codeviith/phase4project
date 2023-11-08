@@ -11,7 +11,268 @@
           "i_name": "item 1",
           "i_img": "link here",
           "i_price": 10,
-          "i_stock": 15,
+          "i_stock": 100,
+          "i_brand": "bran A",
+          "i_category": "House stuff"
+        },
+        {
+          "id": 1,
+          "i_name": "item 1",
+          "i_img": "link here",
+          "i_price": 10,
+          "i_stock": 100,
+          "i_brand": "bran A",
+          "i_category": "House stuff"
+        },
+        {
+          "id": 1,
+          "i_name": "item 1",
+          "i_img": "link here",
+          "i_price": 10,
+          "i_stock": 100,
+          "i_brand": "bran A",
+          "i_category": "House stuff"
+        },
+        {
+          "id": 1,
+          "i_name": "item 1",
+          "i_img": "link here",
+          "i_price": 10,
+          "i_stock": 100,
+          "i_brand": "bran A",
+          "i_category": "House stuff"
+        },
+        {
+          "id": 1,
+          "i_name": "item 1",
+          "i_img": "link here",
+          "i_price": 10,
+          "i_stock": 100,
+          "i_brand": "bran A",
+          "i_category": "House stuff"
+        },
+        {
+          "id": 1,
+          "i_name": "item 1",
+          "i_img": "link here",
+          "i_price": 10,
+          "i_stock": 100,
+          "i_brand": "bran A",
+          "i_category": "House stuff"
+        },
+        {
+          "id": 1,
+          "i_name": "item 1",
+          "i_img": "link here",
+          "i_price": 10,
+          "i_stock": 100,
+          "i_brand": "bran A",
+          "i_category": "House stuff"
+        },
+        {
+          "id": 1,
+          "i_name": "item 1",
+          "i_img": "link here",
+          "i_price": 10,
+          "i_stock": 100,
+          "i_brand": "bran A",
+          "i_category": "House stuff"
+        },
+        {
+          "id": 1,
+          "i_name": "item 1",
+          "i_img": "link here",
+          "i_price": 10,
+          "i_stock": 100,
+          "i_brand": "bran A",
+          "i_category": "House stuff"
+        },
+        {
+          "id": 1,
+          "i_name": "item 1",
+          "i_img": "link here",
+          "i_price": 10,
+          "i_stock": 100,
+          "i_brand": "bran A",
+          "i_category": "House stuff"
+        },
+        {
+          "id": 1,
+          "i_name": "item 1",
+          "i_img": "link here",
+          "i_price": 10,
+          "i_stock": 70,
+          "i_brand": "bran A",
+          "i_category": "House stuff"
+        },
+        {
+          "id": 1,
+          "i_name": "item 1",
+          "i_img": "link here",
+          "i_price": 10,
+          "i_stock": 70,
+          "i_brand": "bran A",
+          "i_category": "House stuff"
+        },
+        {
+          "id": 1,
+          "i_name": "item 1",
+          "i_img": "link here",
+          "i_price": 10,
+          "i_stock": 70,
+          "i_brand": "bran A",
+          "i_category": "House stuff"
+        },
+        {
+          "id": 1,
+          "i_name": "item 1",
+          "i_img": "link here",
+          "i_price": 10,
+          "i_stock": 70,
+          "i_brand": "bran A",
+          "i_category": "House stuff"
+        },
+        {
+          "id": 1,
+          "i_name": "item 1",
+          "i_img": "link here",
+          "i_price": 10,
+          "i_stock": 70,
+          "i_brand": "bran A",
+          "i_category": "House stuff"
+        },
+        {
+          "id": 1,
+          "i_name": "item 1",
+          "i_img": "link here",
+          "i_price": 10,
+          "i_stock": 70,
+          "i_brand": "bran A",
+          "i_category": "House stuff"
+        },
+        {
+          "id": 1,
+          "i_name": "item 1",
+          "i_img": "link here",
+          "i_price": 10,
+          "i_stock": 70,
+          "i_brand": "bran A",
+          "i_category": "House stuff"
+        },
+        {
+          "id": 1,
+          "i_name": "item 1",
+          "i_img": "link here",
+          "i_price": 10,
+          "i_stock": 70,
+          "i_brand": "bran A",
+          "i_category": "House stuff"
+        },
+        {
+          "id": 1,
+          "i_name": "item 1",
+          "i_img": "link here",
+          "i_price": 10,
+          "i_stock": 70,
+          "i_brand": "bran A",
+          "i_category": "House stuff"
+        },
+        {
+          "id": 1,
+          "i_name": "item 1",
+          "i_img": "link here",
+          "i_price": 10,
+          "i_stock": 70,
+          "i_brand": "bran A",
+          "i_category": "House stuff"
+        },
+        {
+          "id": 1,
+          "i_name": "item 1",
+          "i_img": "link here",
+          "i_price": 10,
+          "i_stock": 70,
+          "i_brand": "bran A",
+          "i_category": "House stuff"
+        },
+        {
+          "id": 1,
+          "i_name": "item 1",
+          "i_img": "link here",
+          "i_price": 10,
+          "i_stock": 70,
+          "i_brand": "bran A",
+          "i_category": "House stuff"
+        },
+        {
+          "id": 1,
+          "i_name": "item 1",
+          "i_img": "link here",
+          "i_price": 10,
+          "i_stock": 70,
+          "i_brand": "bran A",
+          "i_category": "House stuff"
+        },
+        {
+          "id": 1,
+          "i_name": "item 1",
+          "i_img": "link here",
+          "i_price": 10,
+          "i_stock": 70,
+          "i_brand": "bran A",
+          "i_category": "House stuff"
+        },
+        {
+          "id": 1,
+          "i_name": "item 1",
+          "i_img": "link here",
+          "i_price": 10,
+          "i_stock": 70,
+          "i_brand": "bran A",
+          "i_category": "House stuff"
+        },
+        {
+          "id": 1,
+          "i_name": "item 1",
+          "i_img": "link here",
+          "i_price": 10,
+          "i_stock": 70,
+          "i_brand": "bran A",
+          "i_category": "House stuff"
+        },
+        {
+          "id": 1,
+          "i_name": "item 1",
+          "i_img": "link here",
+          "i_price": 10,
+          "i_stock": 70,
+          "i_brand": "bran A",
+          "i_category": "House stuff"
+        },
+        {
+          "id": 1,
+          "i_name": "item 1",
+          "i_img": "link here",
+          "i_price": 10,
+          "i_stock": 70,
+          "i_brand": "bran A",
+          "i_category": "House stuff"
+        },
+        {
+          "id": 1,
+          "i_name": "item 1",
+          "i_img": "link here",
+          "i_price": 10,
+          "i_stock": 70,
+          "i_brand": "bran A",
+          "i_category": "House stuff"
+        },
+        {
+          "id": 1,
+          "i_name": "item 1",
+          "i_img": "link here",
+          "i_price": 10,
+          "i_stock": 70,
           "i_brand": "bran A",
           "i_category": "House stuff"
         }
@@ -46,7 +307,7 @@
       "i_name": "item 1",
       "i_img": "link here",
       "i_price": 10,
-      "i_stock": 15,
+      "i_stock": 50,
       "i_brand": "bran A",
       "i_category": "House stuff"
     },
@@ -55,7 +316,7 @@
       "i_name": "item 2",
       "i_img": "link here",
       "i_price": 20,
-      "i_stock": 25,
+      "i_stock": 102,
       "i_brand": "bran A",
       "i_category": "House stuff"
     },
@@ -64,7 +325,7 @@
       "i_name": "item 3",
       "i_img": "link here",
       "i_price": 30,
-      "i_stock": 35,
+      "i_stock": 36,
       "i_brand": "bran B",
       "i_category": "House stuff"
     },
