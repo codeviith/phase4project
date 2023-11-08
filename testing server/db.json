@@ -1,71 +1,81 @@
 {
-    "users": [
+  "users": [
+    {
+      "id": 1,
+      "u_email": "email1@gmail.com",
+      "u_password": "123",
+      "u_orders": [],
+      "u_cart": [
         {
-            "id": 1,
-            "u_email": "email1@gmail.com",
-            "u_password": "123",
-            "u_orders": [],
-            "u_cart" : []
-        },
-        {
-            "id": 2,
-            "u_email": "email2@gmail.com",
-            "u_password": "asd",
-            "u_orders": []
+          "id": 1,
+          "i_name": "item 1",
+          "i_img": "link here",
+          "i_price": 10,
+          "i_stock": 15,
+          "i_brand": "bran A",
+          "i_category": "House stuff"
         }
-    ],
-    "orders": [
-        {
-            "id": 1,
-            "o_creation_date": "11/7/2023, 2:14:29 PM",
-            "o_user_id": 1,
-            "o_items": [],
-            "o_price": 0
-        },
-        {
-            "id": 2,
-            "o_creation_date": "11/7/2023, 3:12:59 PM",
-            "o_user_id": 2,
-            "o_items": [],
-            "o_price": 0
-        }
-    ],
-    "items": [
-        {
-            "id": 1,
-            "i_name": "item 1",
-            "i_img": "link here",
-            "i_price": 10,
-            "i_stock": 15,
-            "i_brand": "bran A",
-            "i_category": "House stuff"
-        },
-        {
-            "id": 2,
-            "i_name": "item 2",
-            "i_img": "link here",
-            "i_price": 20,
-            "i_stock": 25,
-            "i_brand": "bran A",
-            "i_category": "House stuff"
-        },
-        {
-            "id": 3,
-            "i_name": "item 3",
-            "i_img": "link here",
-            "i_price": 30,
-            "i_stock": 35,
-            "i_brand": "bran B",
-            "i_category": "House stuff"
-        },
-        {
-            "id": 4,
-            "i_name": "item 3",
-            "i_img": "link here",
-            "i_price": 40,
-            "i_stock": 45,
-            "i_brand": "bran B",
-            "i_category": "House stuff"
-        }
-    ]
+      ]
+    },
+    {
+      "id": 2,
+      "u_email": "email2@gmail.com",
+      "u_password": "asd",
+      "u_orders": []
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "o_creation_date": "11/7/2023, 2:14:29 PM",
+      "o_user_id": 1,
+      "o_items": [],
+      "o_price": 0
+    },
+    {
+      "id": 2,
+      "o_creation_date": "11/7/2023, 3:12:59 PM",
+      "o_user_id": 2,
+      "o_items": [],
+      "o_price": 0
+    }
+  ],
+  "items": [
+    {
+      "id": 1,
+      "i_name": "item 1",
+      "i_img": "link here",
+      "i_price": 10,
+      "i_stock": 15,
+      "i_brand": "bran A",
+      "i_category": "House stuff"
+    },
+    {
+      "id": 2,
+      "i_name": "item 2",
+      "i_img": "link here",
+      "i_price": 20,
+      "i_stock": 25,
+      "i_brand": "bran A",
+      "i_category": "House stuff"
+    },
+    {
+      "id": 3,
+      "i_name": "item 3",
+      "i_img": "link here",
+      "i_price": 30,
+      "i_stock": 35,
+      "i_brand": "bran B",
+      "i_category": "House stuff"
+    },
+    {
+      "id": 4,
+      "i_name": "item 4",
+      "i_img": "link here",
+      "i_price": 40,
+      "i_stock": 45,
+      "i_brand": "bran B",
+      "i_category": "House stuff"
+    }
+  ]
 }

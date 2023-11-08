@@ -15,7 +15,7 @@ function App() {
   const [user, setUser] = useState  ({});
   const [orders, setOrders] = useState([]);
   const [items, setItems] = useState([]);
-  const [cart, setCart] = useState([]);
+  
 
 
   useEffect(() => {
@@ -52,25 +52,23 @@ function App() {
 
           <Route exact path="/home">
             <Home 
-            items={items}
-            setItems={setItems}
-            cart = {cart}
-            setCart = {setCart}
-
-            
+              user ={user}
+              setUser ={setUser}
+              items={items}
+              setItems={setItems}
             />
           </Route>
 
           <Route exact path="/cart">
             <Cart
-            cart ={cart}
-            setCart ={setCart}
+              user ={user}
+              setUser ={setUser}
              />
           </Route>
 
           <Route exact path="/orders">
             <Orders
-            orders={orders}
+              orders={orders}
              />
           </Route>
 
