@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 //add verification of email for signup
 
-function Login() {
+function Login({setUser, user}) {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPass, setLoginPass] = useState("");
   const [newEmail, setNewEmail] = useState("");
@@ -32,16 +32,23 @@ function Login() {
         }
       })
       .then(data => {
-        // Handle the successful login response, e.g., redirect to a new page.
+        // Handle the successful login response
         console.log(data.message);
+  
+        // Set the user state with the received user data
+        setUser(data.user);
       })
       .catch(error => {
         // Handle errors, e.g., show an error message to the user.
         console.error(error.message);
         // Display the error message to the user
       });
+  
   };
   
+  function test() {
+    console.log(user)
+  }
   
 
   const handleSignup = (e) => {
@@ -77,6 +84,8 @@ function Login() {
 
   return (
     <div>
+      <button id="testbutton" onClick={test}>test</button>
+
       <form onSubmit={handleLogin}>
         <label>Email:</label>
         <br />

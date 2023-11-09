@@ -1,56 +1,74 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-function Home({user, setUser, items,setItems}) {
+function Home({user, setUser, items, setItems}) {
  
 
-  function addToCart(event, item) {}
-  //   event.preventDefault();
+  function addToCart(event, item) {
+    event.preventDefault();
   
-  //   const quantity = parseInt(event.target.quantity.value, 10);
+    const quantity = parseInt(event.target.quantity.value, 10);
+    const newStock = item.i_stock - quantity;
   
-  //   if (item.i_stock >= quantity) {
-  //     const addedItem = item;
+    if (newStock >= 0 && user.id >= 1) {
+      fetch(`http://127.0.0.1:5555/items/${item.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ new_stock: newStock }),
+      })
+        .then(response => {
+          if (response.ok) {
+            // Update the local state with the new stock value
+            const updatedItems = items.map((i) => {
+              if (i.id === item.id) {
+                return { ...i, i_stock: newStock };
+              }
+              return i;
+            });
+            setItems(updatedItems);
   
-  //     if (user) {
-  //       addedItem.i_stock = addedItem.i_stock - quantity
-  //       for (let i = 0; i < quantity; i++) {
-  //         user.u_cart.push(addedItem);
-  //       }
-  //     }
+            // Add the item to the cart
+            fetch('http://127.0.0.1:5555/add_to_cart', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                user_id: user.id, // replace with your actual user id
+                item_id: item.id,
+                quantity: quantity,
+              }),
+            })
+              .then(cartResponse => {
+                if (cartResponse.ok) {
+                  console.log('Item added to the cart successfully');
+                } else {
+                  console.error('Failed to add item to the cart');
+                }
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+          } else {
+            // Handle errors
+            console.error('Failed to update stock');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      } else if (newStock < 0) {
+        alert('Not enough stock');
+      } else {
+        alert('You need to log in');
+      }
   
-  //     fetch("http://localhost:3000/users/1", {
-  //       method: 'PATCH',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(user),
-  //     })
-  //     .then(setUser(user))
-  //     .then(() => {
-  //       alert(`Added ${quantity} ${item.i_name}(s) to the cart`);
-  //     });
+    event.target.reset();
+  }
   
-  //     const newIstock = item.i_stock - quantity;
   
-  //     fetch(`http://localhost:3000/items/${item.id}`, {
-  //       method: 'PATCH',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({ i_stock: newIstock }),
-  //     })
-  //     .then(() => {
-  //       fetch(`http://localhost:3000/items`)
-  //         .then((r) => r.json())
-  //         .then((data) => setItems(data));
-  //     });
-  //   } else {
-  //     alert('Not enough stock');
-  //   }
-  
-  //   event.target.reset();
-  // }
   
 
   return (

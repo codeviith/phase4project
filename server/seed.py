@@ -10,7 +10,7 @@ from random import choice
 
 # Local imports
 from app import app, db  # Import the 'db' object from the 'app' module
-from models import User, Order, Item, UserOrder, OrderItem
+from models import User, Order, Item, UserOrder, OrderItem, Cart
 
 if __name__ == '__main__':
     fake = Faker()
@@ -21,6 +21,11 @@ if __name__ == '__main__':
         User.query.delete()
         Item.query.delete()
         Order.query.delete()
+        UserOrder.query.delete()
+        OrderItem.query.delete()
+        Cart.query.delete()
+
+
 
         # Create and add users to the database
         user1 = User(email="user1@example.com", password="password1")
