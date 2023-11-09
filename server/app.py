@@ -23,8 +23,10 @@ import os
 
 app = Flask(__name__)
 
-# CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
-CORS(app)
+
+
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+
 
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
@@ -37,15 +39,15 @@ migrate.init_app(app, db)
 
 excluded_endpoints = ['login', 'signup', 'check_session', 'root'] ### any other routes that does not need to be logged in
 
-# @app.before_request
-# def check_login_status():
-#     if request.endpoint not in excluded_endpoints:
-#         user_id = session.get('user_id')
-#         user = User.query.filter(User.id == user_id).first()
+@app.before_request
+def check_login_status():
+    if request.endpoint not in excluded_endpoints:
+        user_id = session.get('user_id')
+        user = User.query.filter(User.id == user_id).first()
 
-#         if not user:
-#             return {'error': 'Invalid Session.'}, 401
-# #######end#######
+        if not user:
+            return {'error': 'Invalid Session.'}, 401
+#######end#######
 
 
 # Views go here!
@@ -56,7 +58,7 @@ def index():
 
 
 # #######start#######
-@app.post('/signup')
+@app.route('/signup', methods=['POST'])
 def signup():
     data = request.get_json()
     new_user = User(email=data['email'])
@@ -67,30 +69,35 @@ def signup():
 
     return {'message': 'Registration Successful!'}, 201
 
-# @app.post('/login')
-# def login():
-#     data = request.get_json()
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
 
-#     user = User.query.filter(User.email == data['email']).first()
+    # check if user exists
+    user = User.query.filter(User.email == data['email']).first()
 
-#     if not user:
-#         return {'error': 'User not found.'}, 404
+    if not user:
+        return {'error': 'User not found.'}, 404
     
-#     if user.authenticate(data['password']):
-#         session['user_id'] = user.id
-#         return {'message': 'Login Successful.'}, 201
-#     else:
-#         return {'error': 'Login failed, please try again.'}, 401
+    if user.authenticate(data['password']):
+        # passwords matched, add cookie
+        session['user_id'] = user.id
+        return {'message': 'Login successful!'}, 200
+    else:
+        # password did not match, send error resp
+        return {'error': 'Invalid email or password.'}, 401
 
-# @app.route('/check_session')
-# def check_session():
-#     user_id = session.get('user_id')
-#     user = User.query.filter(User.id == user_id).first()
 
-#     if not user:
-#         return {'error': 'Invalid Session.'}, 401
+
+@app.route('/check_session')
+def check_session():
+    user_id = session.get('user_id')
+    user = User.query.filter(User.id == user_id).first()
+
+    if not user:
+        return {'error': 'Invalid Session.'}, 401
     
-#     return {'message': 'Session Valid, Access Granted'}, 200
+    return {'message': 'Session Valid, Access Granted'}, 200
 
 @app.delete('/logout')
 def logout():

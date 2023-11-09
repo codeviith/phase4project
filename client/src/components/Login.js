@@ -15,7 +15,7 @@ function Login() {
       password: loginPass,
     };
   
-    fetch('http://localhost:5555/login', {
+    fetch('http://127.0.0.1:5555/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ function Login() {
       body: JSON.stringify(data),
     })
       .then(response => {
-        if (response.status === 200) { // Corrected status check
+        if (response.ok) {
           return response.json();
         } else {
           return response.json().then(data => {
@@ -38,8 +38,10 @@ function Login() {
       .catch(error => {
         // Handle errors, e.g., show an error message to the user.
         console.error(error.message);
+        // Display the error message to the user
       });
   };
+  
   
 
   const handleSignup = (e) => {
@@ -49,7 +51,7 @@ function Login() {
       password: newPass,
     };
 
-    fetch('http://localhost:5555/signup', {
+    fetch('http://127.0.0.1:5555/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

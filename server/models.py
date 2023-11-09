@@ -38,14 +38,6 @@ class User(db.Model, SerializerMixin):
     user_order = db.relationship('UserOrder', back_populates='user')
     cart = db.relationship('Cart', back_populates='user')
 
-    # def to_dict(self):
-    #     return {
-    #         "id": self.id,
-    #         "email": self.email,  
-    #         "password": self.password, 
-    #         "orders": [],  
-            
-    #     }
 
     def __repr__(self):
         return f'<User {self.id}>'
@@ -72,12 +64,15 @@ class User(db.Model, SerializerMixin):
         return self._password_hash
     
     @password_hash.setter
-    def password_hash(self, user_pwd):
-        pwd_hash = bcrypt.generate_password_hash(user_pwd.encode('utf-8'))
-        self._password_hash = pwd_hash.decode('utf-8')
+    def password_hash(self, new_pass):
+        pass_hash = bcrypt.generate_password_hash(new_pass.encode('utf-8'))
+        self._password_hash = pass_hash.decode('utf-8')
 
-    def authenticate(self, pwd):
-        return bcrypt.check_password_hash(self._password_hash, pwd.encode('utf-8'))
+    def authenticate(self, password):
+        return bcrypt.check_password_hash(
+            self._password_hash, 
+            password.encode('utf-8')
+        )
     #######end#######
 
 
