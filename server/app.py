@@ -6,6 +6,7 @@
 # Remote library imports
 from flask import request
 from flask_restful import Resource
+from datetime import datetime
 
 from flask import Flask, request
 from flask_cors import CORS
@@ -234,6 +235,43 @@ def get_cart_items():
     return jsonify({'cart_items': serialized_items}), 200
 
 
+####### ORDERS
+
+@app.route('/order', methods=['POST'])
+def create_order():
+    data = request.get_json()
+    def calculate_total_cost(data):
+        total_cost = 0
+
+        for item_data in data:
+            # Assuming each item_data has 'price' and 'quantity' keys
+            price = item_data['item']['price']
+            quantity = item_data['quantity']
+
+            total_cost += price * quantity
+
+        return total_cost
+    
+    
+
+    # Get the current date and time
+    current_datetime = datetime.now()
+    total_cost = calculate_total_cost(data)
+
+    # Create a new order with the correct datetime value
+    new_order = Order(created_date=current_datetime,cost = total_cost)
+    db.session.add(new_order)
+    db.session.commit()
+
+    # # Extract user ID from the first item in the data array
+    user_id = data[0]['user']['id']
+
+    # # Create a new UserOrder record linking the user and the order
+    user_order = UserOrder(user_id=user_id, order_id=new_order.id)
+    db.session.add(user_order)
+    db.session.commit()
+
+    return jsonify({"message": "Order created successfully", "order": new_order.to_dict()}), 201
 
 
 

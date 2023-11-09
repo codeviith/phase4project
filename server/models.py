@@ -114,23 +114,15 @@ class UserOrder(db.Model, SerializerMixin):
 class Order(db.Model, SerializerMixin):
     __tablename__ = "order"
 
-#created_date = db.Column(db.DateTime, nullable=False, default=datetime.now)
-#
-
-    serialize_rules = ('-user_order.order', '-order_item.order')
     id = db.Column(db.Integer, primary_key=True)
-    created_date = db.Column(db.String)
+    created_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    cost = db.Column(db.Integer)
 
     user_order = db.relationship('UserOrder', back_populates='order')
     order_item = db.relationship('OrderItem', back_populates='order')
 
     def to_dict(self):
-        return {
-            "id": self.id,
-            "creation_date": self.creation_date,
-            "user_id": self.user_id,
-            "price": 0  
-        }
+        return f'<Order {self.id}>'
     
 
 class OrderItem(db.Model, SerializerMixin):
