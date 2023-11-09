@@ -4,7 +4,7 @@ import { Link, NavLink } from 'react-router-dom'
 
 const Header = ({ isDarkMode, onToggleDarkMode }) => {
   const buttonTextContent = isDarkMode ? "Light Mode" : "Dark Mode";
-
+//
   return (
     <header>
       <nav>
