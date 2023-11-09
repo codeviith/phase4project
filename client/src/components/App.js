@@ -16,7 +16,7 @@ import Orders from "./Orders.js";
 function App() {
 
   const [user, setUser] = useState  ({});
-  const [orders, setOrders] = useState([]);
+
   const [items, setItems] = useState([]);
   const [itemStock, setItemStock] = useState({});
   const [currentUser, setCurrentUser] = useState({})
@@ -78,8 +78,8 @@ function App() {
           <Route exact path="/orders">
             <Orders
               user={user}
-              orders={orders}
-              setOrders={setOrders}
+              items={items}
+
 
              />
           </Route>

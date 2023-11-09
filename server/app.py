@@ -304,12 +304,27 @@ def get_orders():
     user_id = request.args.get('user_id')
 
     # Fetch all orders that have the specified user_id
-    orders = UserOrder.query.filter_by(user_id=user_id).all()
+    userorders = UserOrder.query.filter_by(user_id=user_id).all()
 
-    # Serialize the orders
-    serialized_orders = [order.to_dict() for order in orders]
+    # Serialize each order and create a list of dictionaries
+    serialized_orders = [order.to_dict() for order in userorders]
 
     return jsonify({'orders': serialized_orders}), 200
+
+
+
+@app.route('/order/<int:order_id>', methods=['GET'])
+def get_order_details(order_id):
+    order = Order.query.get(order_id)
+
+    if order:
+        # Assuming you have a 'to_dict()' method in your Order model
+        order_data = order.to_dict()
+        return jsonify(order_data)
+    else:
+        return jsonify({'error': 'Order not found'}), 404
+
+
 
 
 
