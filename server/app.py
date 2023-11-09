@@ -237,16 +237,16 @@ def get_cart_items():
 
 ####### ORDERS
 
+from sqlalchemy.exc import SQLAlchemyError
+
 @app.route('/order', methods=['POST'])
 def create_order():
     def calculate_total_cost(data):
         total_cost = 0
 
         for item_data in data:
-            # Assuming each item_data has 'price' and 'quantity' keys
             price = item_data['item']['price']
             quantity = item_data['quantity']
-
             total_cost += price * quantity
 
         return total_cost
@@ -270,7 +270,7 @@ def create_order():
     # Create a new UserOrder record linking the user and the order
     user_order = UserOrder(user_id=user_id, order_id=new_order.id)
     db.session.add(user_order)
-    db.session.commit()
+ 
 
     # Create OrderItem instances for each item in the data array
     for item_data in data:
@@ -279,10 +279,23 @@ def create_order():
 
         order_item = OrderItem(order_id=new_order.id, item_id=item_id, quantity=quantity)
         db.session.add(order_item)
-    
-    db.session.commit()
 
-    return jsonify({"message": "Order created successfully", "order": new_order.to_dict()}), 201
+    try:
+        db.session.commit()
+
+        # Delete cart items for the user
+        Cart.query.filter_by(user_id=user_id).delete()
+        db.session.commit()
+
+        # Use the to_dict method for the response
+        return jsonify({"message": "Order created successfully", "order": new_order.to_dict()}), 201
+
+    except SQLAlchemyError as e:
+        # Handle any database errors
+        db.session.rollback()
+        return jsonify({"error": "Failed to create order", "details": str(e)}), 500
+
+
 
 
 
