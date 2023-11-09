@@ -178,13 +178,14 @@ def add_to_cart():
 
 #### CART STUFF
 
+
 @app.route('/remove_from_cart', methods=['POST'])
 def remove_from_cart():
     data = request.get_json()
 
     user_id = data.get('user_id')
     item_id = data.get('item_id')
-    quantity = data.get('quantity')
+    quantity_to_remove = data.get('quantity')
 
     # Check if user and item exist
     user = User.query.get(user_id)
@@ -193,24 +194,26 @@ def remove_from_cart():
     if not user or not item:
         return jsonify({'error': 'User or item not found'}), 404
 
-    # Check if the item is in the cart
+    # Check if the item is in the cart for the user
     cart_entry = Cart.query.filter_by(user_id=user_id, item_id=item_id).first()
 
-    if not cart_entry:
-        return jsonify({'error': 'Item not found in the cart'}), 404
+    if cart_entry and cart_entry.quantity >= quantity_to_remove:
+        # Add the selected quantity back to the stock of the original item
+        item.stock += quantity_to_remove
 
-    # If the selected quantity is less than or equal to the current quantity in the cart,
-    # update the cart entry with the reduced quantity
-    if quantity < cart_entry.quantity:
-        cart_entry.quantity -= quantity
+        # Reduce the selected quantity for the item in the cart
+        cart_entry.quantity -= quantity_to_remove
+
+        # Delete the row if the quantity becomes zero
+        if cart_entry.quantity == 0:
+            db.session.delete(cart_entry)
+
+        db.session.commit()
+
+        return jsonify({'message': 'Item removed from cart successfully'}), 200
     else:
-        # If the selected quantity is equal to or greater than the current quantity in the cart,
-        # delete the cart entry
-        db.session.delete(cart_entry)
+        return jsonify({'error': 'Invalid request'}), 400
 
-    db.session.commit()
-
-    return jsonify({'message': 'Item removed from the cart successfully'}), 200
 
 @app.route('/cart', methods=['GET'])
 def get_cart_items():
