@@ -76,11 +76,12 @@ function Home({ user, setUser, items, setItems }) {
       <div id="itemList">
         {items.map((item, index) => (
           <ul key={index}>
-            <li>{item.image_url}</li>
+            <li><img src={item.image_url} alt="Product Image" /></li>
             <li>{item.name}</li>
-            <li>{item.brand}</li>
+            <li>Brand: {item.brand}</li>
+            <li>Category: {item.category}</li>
             <li>Price: ${item.price}</li>
-            <li>Stock: {item.stock}</li>
+            <li>Stock: {item.stock} units</li>
   
             <form onSubmit={(event) => addToCart(event, item)}>
               <label htmlFor="quantity">Quantity:</label>

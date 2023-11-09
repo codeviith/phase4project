@@ -46,9 +46,7 @@ function Login({setUser, user}) {
   
   };
   
-  function test() {
-    console.log(user)
-  }
+
   
 
   const handleSignup = (e) => {
@@ -56,8 +54,10 @@ function Login({setUser, user}) {
     const data = {
       email: newEmail,
       password: newPass,
+
     };
 
+    
     fetch('http://127.0.0.1:5555/signup', {
       method: 'POST',
       headers: {
@@ -76,67 +76,69 @@ function Login({setUser, user}) {
       })
       .then(data => {
         console.log(data.message);
+        // Reset the form after successful signup
+      
       })
       .catch(error => {
         console.error(error.message);
       });
   };
+  
 
   return (
-    <div>
-      <button id="testbutton" onClick={test}>test</button>
-
-      <form onSubmit={handleLogin}>
-        <label>Email:</label>
-        <br />
-        <input
-          type="email"
-          id="loginEmail"
-          value={loginEmail}
-          onChange={(e) => setLoginEmail(e.target.value)}
-        />
-        <br />
-        <label>Password:</label>
-        <br />
-        <input
-          type="password"
-          id="loginPass"
-          value={loginPass}
-          onChange={(e) => setLoginPass(e.target.value)}
-        />
-        <br />
-        <input className="loginput" type="submit" value="Login" />
-      </form>
-
+    <div className="login">
+      <h5 className="create-account">LOGIN</h5>
+    <form onSubmit={handleLogin} className="login-form">
+      <label>Email:</label>
       <br />
-
-      <h5 className="create-account">CREATE NEW ACCOUNT</h5>
+      <input
+        type="email"
+        id="loginEmail"
+        value={loginEmail}
+        onChange={(e) => setLoginEmail(e.target.value)}
+      />
       <br />
-      <form onSubmit={handleSignup}>
-        <label>Email:</label>
-        <br />
-        <input
-          type="email"
-          id="newEmail"
-          value={newEmail}
-          onChange={(e) => setNewEmail(e.target.value)}
-        />
-        <br />
-        <label>Password:</label>
-        <br />
-        <input
-          type="password"
-          id="newPass"
-          value={newPass}
-          onChange={(e) => setNewPass(e.target.value)}
-        />
-        <br />
-        <input className="loginput" type="submit" value="Create" />
-      </form>
-
+      <label>Password:</label>
       <br />
-    </div>
-  );
-}
+      <input
+        type="password"
+        id="loginPass"
+        value={loginPass}
+        onChange={(e) => setLoginPass(e.target.value)}
+      />
+      <br />
+      <input className="loginput" type="submit" value="Login" />
+    </form>
+  
+    <br />
+  
+    <h5 className="create-account">CREATE NEW ACCOUNT</h5>
+    <br />
+    <form onSubmit={handleSignup} className="signup-form">
+      <label>Email:</label>
+      <br />
+      <input
+        type="email"
+        id="newEmail"
+        value={newEmail}
+        onChange={(e) => setNewEmail(e.target.value)}
+      />
+      <br />
+      <label>Password:</label>
+      <br />
+      <input
+        type="password"
+        id="newPass"
+        value={newPass}
+        onChange={(e) => setNewPass(e.target.value)}
+      />
+      <br />
+      <input className="loginput" type="submit" value="Create" />
+    </form>
+  
+    <br />
+  </div>
+  )
+  }
 
 export default Login;

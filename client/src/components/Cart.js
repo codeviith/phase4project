@@ -86,40 +86,41 @@ function Cart({ user, items, cart, setCart }) {
   return (
     <div>
       <button id="testbutton" onClick={() => createOrder(cart, user)}>
-        BUY IT MTF
+        Create order
       </button>
       <h2>Items in cart list</h2>
-      <div id="itemCartList">
+      <div id="itemCartList" className="item-grid">
         {cart.map((cartItem, index) => (
-          <ul key={index}>
-            <li>{cartItem.item.image_url}</li>
-            <li>{cartItem.item.name}</li>
-            <li>{cartItem.item.brand}</li>
-            <li>Price: ${cartItem.item.price}</li>
-            <li>Quantity: {cartItem.quantity}</li>
-            <form onSubmit={(event) => removeFromCart(event, cartItem)}>
-              <label htmlFor="quantityToRemove">Remove Quantity:</label>
-              <select
-                id="quantityToRemove"
-                name="quantityToRemove"
-                value={quantityToRemove}
-                onChange={handleQuantityChange}
-              >
-                {Array.from({ length: cartItem.quantity }, (_, i) => i + 1).map(
-                  (num) => (
-                    <option key={num} value={num}>
-                      {num}
-                    </option>
-                  )
-                )}
-              </select>
-              <button type="submit">Remove from Cart</button>
-            </form>
-          </ul>
+          <div key={index} className="cart-item">
+            <img src={cartItem.item.image_url} alt="Product Image" />
+            <div className="item-details">
+              <h3>{cartItem.item.name}</h3>
+              <p>{cartItem.item.brand}</p>
+              <p>Price: ${cartItem.item.price}</p>
+              <p>Quantity: {cartItem.quantity}</p>
+              <form onSubmit={(event) => removeFromCart(event, cartItem)}>
+                <label htmlFor="quantityToRemove">Remove Quantity:</label>
+                <select
+                  id="quantityToRemove"
+                  name="quantityToRemove"
+                  value={quantityToRemove}
+                  onChange={handleQuantityChange}
+                >
+                  {Array.from({ length: cartItem.quantity }, (_, i) => i + 1).map(
+                    (num) => (
+                      <option key={num} value={num}>
+                        {num}
+                      </option>
+                    )
+                  )}
+                </select>
+                <button type="submit">Remove from Cart</button>
+              </form>
+            </div>
+          </div>
         ))}
       </div>
     </div>
   );
-}
-
+                    }  
 export default Cart;
