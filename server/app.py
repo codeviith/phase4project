@@ -41,18 +41,7 @@ migrate.init_app(app, db)
 
 excluded_endpoints = ['login', 'signup', 'check_session', 'root', 'items'] ### any other routes that does not need to be logged in
 
-# @app.before_request
-# def check_logged_in():
-#     if request.endpoint not in excluded_endpoints:
-#         user_id = session.get('user_id')
-#         user = User.query.filter(User.id == user_id).first()
 
-#         if not user:
-#             # invalid cookie
-#             return {'message': 'invalid session'}, 401
-
-
-# Views go here!
 
 @app.route('/')
 def index():
@@ -224,6 +213,7 @@ def remove_from_cart():
 
 @app.route('/cart', methods=['GET'])
 def get_cart_items():
+
     user_id = request.args.get('user_id')
 
     # Fetch all items in the cart that have the specified user_id
