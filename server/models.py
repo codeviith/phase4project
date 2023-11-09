@@ -130,6 +130,7 @@ class OrderItem(db.Model, SerializerMixin):
 
     serialize_rules = ('-item.order_item','-order.order_item')
     id = db.Column(db.Integer, primary_key=True)
+    quantity = db.Column(db.Integer)
 
     order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
     item_id = db.Column(db.Integer, db.ForeignKey('item.id'))

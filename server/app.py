@@ -239,7 +239,6 @@ def get_cart_items():
 
 @app.route('/order', methods=['POST'])
 def create_order():
-    data = request.get_json()
     def calculate_total_cost(data):
         total_cost = 0
 
@@ -251,27 +250,40 @@ def create_order():
             total_cost += price * quantity
 
         return total_cost
-    
-    
+
+    data = request.get_json()
 
     # Get the current date and time
     current_datetime = datetime.now()
+
+    # Calculate the total cost using the function
     total_cost = calculate_total_cost(data)
 
-    # Create a new order with the correct datetime value
-    new_order = Order(created_date=current_datetime,cost = total_cost)
+    # Create a new order with the correct datetime value and total cost
+    new_order = Order(created_date=current_datetime, cost=total_cost)
     db.session.add(new_order)
     db.session.commit()
 
-    # # Extract user ID from the first item in the data array
+    # Extract user ID from the first item in the data array
     user_id = data[0]['user']['id']
 
-    # # Create a new UserOrder record linking the user and the order
+    # Create a new UserOrder record linking the user and the order
     user_order = UserOrder(user_id=user_id, order_id=new_order.id)
     db.session.add(user_order)
     db.session.commit()
 
+    # Create OrderItem instances for each item in the data array
+    for item_data in data:
+        item_id = item_data['item']['id']
+        quantity = item_data['quantity']
+
+        order_item = OrderItem(order_id=new_order.id, item_id=item_id, quantity=quantity)
+        db.session.add(order_item)
+    
+    db.session.commit()
+
     return jsonify({"message": "Order created successfully", "order": new_order.to_dict()}), 201
+
 
 
 
