@@ -34,6 +34,9 @@ function Cart({ user, items, cart, setCart }) {
     }
   }
   
+  
+
+
   useEffect(() => {
     fetch(`http://127.0.0.1:5555/cart?user_id=${user.id}`)
       .then((response) => response.json())
