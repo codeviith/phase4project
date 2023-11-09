@@ -137,7 +137,9 @@ def item_to_cart(item_id):
     
 
 #### HOME STUFF
-    
+
+#### HOME STUFF
+
 @app.route('/add_to_cart', methods=['POST'])
 def add_to_cart():
     data = request.get_json()
@@ -160,19 +162,23 @@ def add_to_cart():
 
         if existing_cart_entry:
             # If the item is already in the cart, update the quantity
-            existing_cart_entry.quantity += quantity
+            if existing_cart_entry.quantity + quantity <= item.stock:
+                existing_cart_entry.quantity += quantity
+            else:
+                return jsonify({'error': 'Not enough stock to add to cart'}), 400
         else:
             # Otherwise, create a new Cart entry
             cart_entry = Cart(quantity=quantity, user=user, item=item)
             db.session.add(cart_entry)
 
-        # Update the item stock
-        item.stock -= quantity
+        # Commit changes to the cart
         db.session.commit()
 
         return jsonify({'message': 'Item added to the cart successfully'}), 200
     else:
         return jsonify({'error': 'Not enough stock'}), 400
+
+
 
 
 
