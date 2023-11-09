@@ -22,6 +22,7 @@ from models import db, User, Order, Item
 import os
 
 app = Flask(__name__)
+app.secret_key = "abc123"
 
 
 
@@ -31,7 +32,7 @@ CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
-app.secret_key = os.environ.get('SECRET_KEY')  # Use 'os.environ' instead of 'os.envrion'
+
 
 db.init_app(app)
 migrate = Migrate()
