@@ -34,7 +34,7 @@ if __name__ == '__main__':
         db.session.add(user1)
         db.session.add(user2)
 
-        item1 = Item(name="Item 1", price=10.99, image_url="item1.jpg", stock=100, category="Category A", brand="BRAND")
+        item1 = Item(name="Item 1", price=10.99, image_url="item1.jpg", stock=99, category="Category A", brand="BRAND")
         item2 = Item(name="Item 2", price=15.99, image_url="item2.jpg", stock=50, category="Category B", brand="BRAND")
         item3 = Item(name="Item 3", price=15.99, image_url="item2.jpg", stock=50, category="Category B", brand="BRAND")
 
