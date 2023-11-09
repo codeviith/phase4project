@@ -129,7 +129,7 @@ function Order({ user,items }) {
                     <ul>
                       <li>Item ID: {itemID}</li>
                       <li>Item Quantity: {quantity}</li>
-                      {/* Additional information for each item */}
+       
                       {item && (
                         <div>
                           <li>Item Image URL: {item.image_url}</li>
