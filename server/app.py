@@ -136,7 +136,7 @@ def item_to_cart(item_id):
         return jsonify({'error': 'Item not found'}), 404
     
 
-
+#### HOME STUFF
     
 @app.route('/add_to_cart', methods=['POST'])
 def add_to_cart():
@@ -176,11 +176,53 @@ def add_to_cart():
 
 
 
+#### CART STUFF
 
+@app.route('/remove_from_cart', methods=['POST'])
+def remove_from_cart():
+    data = request.get_json()
 
+    user_id = data.get('user_id')
+    item_id = data.get('item_id')
+    quantity = data.get('quantity')
 
+    # Check if user and item exist
+    user = User.query.get(user_id)
+    item = Item.query.get(item_id)
 
+    if not user or not item:
+        return jsonify({'error': 'User or item not found'}), 404
 
+    # Check if the item is in the cart
+    cart_entry = Cart.query.filter_by(user_id=user_id, item_id=item_id).first()
+
+    if not cart_entry:
+        return jsonify({'error': 'Item not found in the cart'}), 404
+
+    # If the selected quantity is less than or equal to the current quantity in the cart,
+    # update the cart entry with the reduced quantity
+    if quantity < cart_entry.quantity:
+        cart_entry.quantity -= quantity
+    else:
+        # If the selected quantity is equal to or greater than the current quantity in the cart,
+        # delete the cart entry
+        db.session.delete(cart_entry)
+
+    db.session.commit()
+
+    return jsonify({'message': 'Item removed from the cart successfully'}), 200
+
+@app.route('/cart', methods=['GET'])
+def get_cart_items():
+    user_id = request.args.get('user_id')
+
+    # Fetch all items in the cart that have the specified user_id
+    cart_items = Cart.query.filter_by(user_id=user_id).all()
+
+    # Serialize the items
+    serialized_items = [item.to_dict() for item in cart_items]
+
+    return jsonify({'cart_items': serialized_items}), 200
 
 
 

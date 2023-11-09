@@ -168,16 +168,8 @@ class Item(db.Model, SerializerMixin):
     order_item = db.relationship('OrderItem', back_populates='item')
     cart = db.relationship('Cart', back_populates='item')
 
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "i_name": self.name,
-            "i_img": self.image_url,
-            "i_price": self.price,
-            "i_stock": self.stock,
-            "i_category": self.category,
-            "i_brand": self.brand
-        }
+    def __repr__(self):
+        return f'<Item {self.id}>'
 
 
     #######start#######
