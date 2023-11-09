@@ -124,14 +124,8 @@ class Order(db.Model, SerializerMixin):
 
     user_order = db.relationship('UserOrder', back_populates='order')
     order_item = db.relationship('OrderItem', back_populates='order')
-
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "created_date": self.created_date.strftime('%Y-%m-%d %H:%M:%S'),
-            "cost": self.cost,
-
-        }
+    def __repr__(self):
+        return f'<Order{self.id}>'
     
 
 class OrderItem(db.Model, SerializerMixin):

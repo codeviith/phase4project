@@ -18,6 +18,7 @@ function Cart({ user, items, cart, setCart }) {
       })
       .then(response => {
         if (response.ok) {
+          clear()
           return response.json();
         } else {
           throw new Error('Failed to create order');
@@ -34,15 +35,17 @@ function Cart({ user, items, cart, setCart }) {
     }
   }
   
-  
-
+  function clear() {
+    setCart([])
+    alert("order created")
+  }
 
   useEffect(() => {
     fetch(`http://127.0.0.1:5555/cart?user_id=${user.id}`)
       .then((response) => response.json())
       .then((data) => setCart(data.cart_items))
       .catch((error) => console.error("Error fetching cart items:", error));
-  }, [items]);
+  }, []);
 
   const removeFromCart = async (event, cartItem) => {
     event.preventDefault();

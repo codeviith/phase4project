@@ -299,10 +299,17 @@ def create_order():
 
 
 
+@app.route('/user_order', methods=['GET'])
+def get_orders():
+    user_id = request.args.get('user_id')
 
+    # Fetch all orders that have the specified user_id
+    orders = UserOrder.query.filter_by(user_id=user_id).all()
 
+    # Serialize the orders
+    serialized_orders = [order.to_dict() for order in orders]
 
-
+    return jsonify({'orders': serialized_orders}), 200
 
 
 

@@ -77,7 +77,10 @@ function App() {
 
           <Route exact path="/orders">
             <Orders
+              user={user}
               orders={orders}
+              setOrders={setOrders}
+
              />
           </Route>
 
