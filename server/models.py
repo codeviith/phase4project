@@ -120,6 +120,7 @@ class Order(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     created_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     cost = db.Column(db.Integer)
+    n_items = db.Column(db.Integer)
 
     user_order = db.relationship('UserOrder', back_populates='order')
     order_item = db.relationship('OrderItem', back_populates='order')

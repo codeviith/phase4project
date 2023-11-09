@@ -1,158 +1,119 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
-function Cart({ user, setUser,setItemStock,setItems }) {
-  // const [counts, setCounts] = useState({});
-
-  // useEffect(() => {
-  //   if (user && user.u_cart && user.u_cart.length > 0) {
-  //     const newCounts = {};
-  //     user.u_cart.forEach((item) => {
-  //       const id = item.id;
-  //       if (newCounts[id] === undefined) {
-  //         newCounts[id] = 0;
-  //       }
-  //       newCounts[id] = newCounts[id] + 1;
-  //     });
-  //     setCounts(newCounts);
-  //   }
-  // }, [user, user.u_cart]);
-
-  // function findQuantity(counts, id) {
-  //   if (counts[id] !== undefined) {
-  //     return counts[id];
-  //   }
-  //   return 0; 
-  // }
-
-  // function removeFromCart(itemIndex, selectedQuantity,item) {
-
-  //   fetch(`http://localhost:3000/items`)
-  //   .then((r) => r.json())
-  //   .then((data) => setItems(data));
-
-  //   const updatedUser = { ...user };
-
-  //   let newstock = item.i_stock + selectedQuantity
-  //   console.log(newstock)
-  //   console.log(item.i_stock)
-  //     console.log(selectedQuantity)
-  //   for (let i = 0; i < selectedQuantity; i++) {
-  //     if (itemIndex >= 0 && itemIndex < updatedUser.u_cart.length) {
-  //       updatedUser.u_cart.splice(itemIndex, 1);
-  //     }
-  //   }
-
-  //   fetch("http://localhost:3000/users/1", {
-  //     method: 'PATCH',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(updatedUser),
-  //   })
-  //     .then((response) => {
-  //       setUser(updatedUser);
-  //     });
-
-  //     fetch(`http://localhost:3000/items/${item.id}`, {
-  //       method: 'PATCH',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({ i_stock: newstock }),
-  //     })
-  //     .then(() => {
-
-  //       fetch(`http://localhost:3000/items`)
-  //         .then((r) => r.json())
-  //         .then((data) => setItems(data));
-
-  //         fetch("http://localhost:3000/users/1")
-  //         .then((r) => r.json())
-  //         .then((data) => setUser(data));
+function Cart({ user, items, cart, setCart }) {
 
 
-  //     });
-  // }
+  const [quantityToRemove, setQuantityToRemove] = useState(1);
+
+  function createOrder(cart, user) {
+    if (cart.length >= 1 && user.id >= 1) {
+      console.log(cart)
+
+      fetch('http://127.0.0.1:5555/order', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(cart),
+      })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Failed to create order');
+        }
+      })
+      .then(data => {
+        console.log("Order created successfully:", data.order);
+        // Handle the order data as needed
+      })
+      .catch(error => {
+        console.error('Error creating order:', error);
+        // Handle the error as needed
+      });
+    }
+  }
   
+  useEffect(() => {
+    fetch(`http://127.0.0.1:5555/cart?user_id=${user.id}`)
+      .then((response) => response.json())
+      .then((data) => setCart(data.cart_items))
+      .catch((error) => console.error("Error fetching cart items:", error));
+  }, [items]);
 
-  // const uniqueItemIds = new Set();
+  const removeFromCart = async (event, cartItem) => {
+    event.preventDefault();
+
+    // Remove the quantity from the cart
+    const response = await fetch(`http://127.0.0.1:5555/remove_from_cart`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user_id: user.id,
+        item_id: cartItem.item_id,
+        quantity: quantityToRemove,
+      }),
+    });
+
+    if (response.ok) {
+      // Fetch updated cart items after removing from cart
+      const updatedResponse = await fetch(
+        `http://127.0.0.1:5555/cart?user_id=${user.id}`
+      );
+      if (updatedResponse.ok) {
+        const updatedData = await updatedResponse.json();
+        setCart(updatedData.cart_items);
+      } else {
+        console.error("Failed to fetch updated cart items");
+      }
+    } else {
+      console.error("Failed to remove from cart");
+    }
+  };
+
+  const handleQuantityChange = (event) => {
+    setQuantityToRemove(parseInt(event.target.value, 10));
+  };
 
   return (
     <div>
-      <h2>Items in your cart</h2>
-      {/* <div id="cartList">
-        {user && user.u_cart && user.u_cart.length > 0 ? (
-          user.u_cart.map((item, index) => {
-            if (!uniqueItemIds.has(item.id)) {
-              uniqueItemIds.add(item.id);
-              return (
-                <ul key={index}>
-                  <li>{item.i_img}</li>
-                  <li>{item.i_name}</li>
-                  <li>{item.i_brand}</li>
-                  <li>Price: ${item.i_price}</li>
-
-                  <li>In your cart : {findQuantity(counts, item.id)}</li>
-
-                  <form onSubmit={(e) => {
-                    e.preventDefault();
-                    const selectedQuantity = parseInt(
-                      document.getElementById(`quantity${item.id}`).value
-                    );
-                    removeFromCart(index, selectedQuantity,item);
-                  }}>
-                  <select
-                    id={`quantity${item.id}`}
-                  >
-                    {Array.from({ length: findQuantity(counts, item.id) }, (_, i) => (
-                      <option key={i + 1} value={i + 1}>
-                        {i + 1}
-                      </option>
-                     ))}
-                  </select>
-
-                    <button type="submit">Remove from cart</button>
-                  </form>
-
-
-              </ul>
-              );
-            } else {
-              return null; 
-            }
-          })
-        ) : 
-          <p>Your cart is empty.</p>
-         } </div> */}
+      <button id="testbutton" onClick={() => createOrder(cart, user)}>
+        BUY IT MTF
+      </button>
+      <h2>Items in cart list</h2>
+      <div id="itemCartList">
+        {cart.map((cartItem, index) => (
+          <ul key={index}>
+            <li>{cartItem.item.image_url}</li>
+            <li>{cartItem.item.name}</li>
+            <li>{cartItem.item.brand}</li>
+            <li>Price: ${cartItem.item.price}</li>
+            <li>Quantity: {cartItem.quantity}</li>
+            <form onSubmit={(event) => removeFromCart(event, cartItem)}>
+              <label htmlFor="quantityToRemove">Remove Quantity:</label>
+              <select
+                id="quantityToRemove"
+                name="quantityToRemove"
+                value={quantityToRemove}
+                onChange={handleQuantityChange}
+              >
+                {Array.from({ length: cartItem.quantity }, (_, i) => i + 1).map(
+                  (num) => (
+                    <option key={num} value={num}>
+                      {num}
+                    </option>
+                  )
+                )}
+              </select>
+              <button type="submit">Remove from Cart</button>
+            </form>
+          </ul>
+        ))}
+      </div>
     </div>
   );
 }
 
 export default Cart;
-
-
-
-
-/*
-<label htmlFor={`quantitySelector${index}`}>Select quantity to delete:</label>
-<select
-  id={`quantitySelector${index}`}
-  value={findQuantity(counts, item.id)} // Set the selected value to the current quantity
-  onChange={(e) => removeFromCart(index, parseInt(e.target.value))}
->
-  {Array.from({ length: findQuantity(counts, item.id) }, (_, i) => (
-    <option key={i + 1} value={i + 1}>
-      {i + 1}
-    </option>
-    ))}
-
-</select>
-
-<button onClick={() => removeFromCart(index, findQuantity(counts, item.id))}>Delete</button>
-
-</ul>
-
-
-
-*/

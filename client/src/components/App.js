@@ -9,6 +9,10 @@ import About from "./About.js";
 import Orders from "./Orders.js";
 
 
+//Solo puedo agregar la mitad del stock????
+//bloquear todo hasta que se borre el carro?
+
+
 function App() {
 
   const [user, setUser] = useState  ({});
@@ -16,6 +20,7 @@ function App() {
   const [items, setItems] = useState([]);
   const [itemStock, setItemStock] = useState({});
   const [currentUser, setCurrentUser] = useState({})
+  const [cart, setCart] = useState([]);
   
   useEffect(() => {
     fetch("/check_session").then((res) => {
@@ -26,28 +31,11 @@ function App() {
 }, []);
 
 
-  // useEffect(() => {
-  //   // Check if the user is logged in before making the fetch request
-  //   if (user && user.id) {
-  //     fetch(`http://127.0.0.1:5555/orders?user_id=${user.id}`)
-  //       .then((r) => r.json())
-  //       .then((data) => {
-  //         // Filter orders based on user ID
-  //         const filteredOrders = data.filter((order) => order.user_order.user_id === user.id);
-  //         setOrders(filteredOrders);
-  //       })
-  //       .catch((error) => {
-  //         // Handle any errors during the fetch request
-  //         console.error('Error fetching orders:', error);
-  //       });
-  //   }
-  // }, [user]);
-
   useEffect(() => {
     fetch("http://127.0.0.1:5555/items")
     .then((r) => r.json())
     .then((data) => setItems(data));
-    }, [user]);
+    }, [user, cart]);
 
   return (
     <div>
@@ -81,6 +69,9 @@ function App() {
               setUser ={setUser}
               setItemStock ={setItemStock}
               setItems = {setItems}
+              cart = {cart}
+              setCart = {setCart}
+
              />
           </Route>
 

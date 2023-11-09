@@ -241,26 +241,29 @@ from sqlalchemy.exc import SQLAlchemyError
 
 @app.route('/order', methods=['POST'])
 def create_order():
-    def calculate_total_cost(data):
-        total_cost = 0
+    data = request.get_json()
 
+    def calculate_total_cost(data):      
+        total_cost = 0
         for item_data in data:
             price = item_data['item']['price']
             quantity = item_data['quantity']
             total_cost += price * quantity
+        return  total_cost
 
-        return total_cost
+    def calculate_total_items(data):      
+        total_items = 0
+        for item_data in data:
+            quantity = item_data['quantity']
+            total_items +=quantity
+        return  total_items
 
-    data = request.get_json()
-
-    # Get the current date and time
     current_datetime = datetime.now()
-
-    # Calculate the total cost using the function
     total_cost = calculate_total_cost(data)
+    total_items = calculate_total_items(data)
 
-    # Create a new order with the correct datetime value and total cost
-    new_order = Order(created_date=current_datetime, cost=total_cost)
+    # Create a new order
+    new_order = Order(created_date=current_datetime, cost=total_cost, n_items=total_items)
     db.session.add(new_order)
     db.session.commit()
 
@@ -271,7 +274,6 @@ def create_order():
     user_order = UserOrder(user_id=user_id, order_id=new_order.id)
     db.session.add(user_order)
  
-
     # Create OrderItem instances for each item in the data array
     for item_data in data:
         item_id = item_data['item']['id']
@@ -294,14 +296,6 @@ def create_order():
         # Handle any database errors
         db.session.rollback()
         return jsonify({"error": "Failed to create order", "details": str(e)}), 500
-
-
-
-
-
-
-
-
 
 
 
